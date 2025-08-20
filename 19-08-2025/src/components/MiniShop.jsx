@@ -1,4 +1,3 @@
-// src/components/MiniShop.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,21 +20,18 @@ function MiniShop() {
   const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
 
-  // Load cart count from localStorage when page loads
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartCount(cart.length);
   }, []);
 
-  // Function to add product to localStorage
   const addToCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
     cart.push(product);
     localStorage.setItem("cartItems", JSON.stringify(cart));
-    setCartCount(cart.length); // ✅ update badge count
+    setCartCount(cart.length); 
   };
 
-  // ✅ Unique product list (no duplicates)
   const products = [
     { id: 1, img: "/minishop-imgs/62urk_512.avif", name: "Black Shoe", price: "₹500" },
     { id: 2, img: "/minishop-imgs/mofzv_512.avif", name: "iPhone 13 case", price: "₹200" },
@@ -49,21 +45,18 @@ function MiniShop() {
     { id: 10, img: "/minishop-imgs/fbs8b_512.avif", name: "Casual Shoe", price: "₹500" },
   ];
 
-  // ✅ Extra safety: remove duplicates by ID (just in case)
   const uniqueProducts = products.filter(
     (prod, index, self) => index === self.findIndex((p) => p.id === prod.id)
   );
 
   return (
     <>
-      {/* Top AppBar */}
       <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "left" }}>
             MINI SHOP
           </Typography>
 
-          {/* Cart Icon with Badge */}
           <IconButton color="inherit" onClick={() => navigate("/cart")}>
             <Badge badgeContent={cartCount} color="error">
               <ShoppingCartIcon sx={{ fontSize: 30 }} />
@@ -72,7 +65,6 @@ function MiniShop() {
         </Toolbar>
       </AppBar>
 
-      {/* Product Row */}
       <Grid container spacing={3} sx={{ p: 3 }} justifyContent="center">
         {uniqueProducts.map((product) => (
           <Grid item xs={3} key={product.id}>
