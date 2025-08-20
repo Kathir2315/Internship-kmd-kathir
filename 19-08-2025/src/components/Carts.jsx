@@ -1,4 +1,4 @@
-// src/components/Carts.jsx
+
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
@@ -18,13 +18,13 @@ function Carts() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
-  // Load cart items from localStorage on page load
+  
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCart);
   }, []);
 
-  // Remove item from cart
+
   const removeFromCart = (index) => {
     let updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
@@ -32,17 +32,15 @@ function Carts() {
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
-  // Calculate totals
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + parseInt(item.price.replace("₹", "")),
     0
   );
-  const discount = totalPrice * 0.05; // 3% discount
+  const discount = totalPrice * 0.05; 
   const finalPrice = totalPrice - discount;
 
   return (
     <>
-      {/* Top Bar with Back Button */}
       <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -54,9 +52,7 @@ function Carts() {
         </Toolbar>
       </AppBar>
 
-      {/* Page Layout with Equal Panels */}
       <Box sx={{ display: "flex", height: "calc(100vh - 64px)" }}>
-        {/* Left Panel - Cart Items */}
         <Box
           sx={{
             flex: 1,
@@ -103,7 +99,6 @@ function Carts() {
           )}
         </Box>
 
-        {/* Right Panel - Order Summary */}
         <Box
           sx={{
             flex: 1,
@@ -117,13 +112,11 @@ function Carts() {
           </Typography>
           {cartItems.length > 0 ? (
             <Box sx={{ mt: 2 }}>
-              {/* Row - Total Price */}
               <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                 <Typography variant="body1">Total Price :</Typography>
                 <Typography variant="body1">₹{totalPrice}</Typography>
               </Box>
 
-              {/* Row - Discount */}
               <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                 <Typography variant="body1">Discount (5%) :</Typography>
                 <Typography variant="body1" color="success.main">
@@ -131,7 +124,6 @@ function Carts() {
                 </Typography>
               </Box>
 
-              {/* Row - Final Price */}
               <Box
                 sx={{
                   display: "flex",
